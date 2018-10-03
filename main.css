@@ -1,1 +1,47 @@
 /* CSS FILE */
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.wrapper {
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: space-around;
+  padding-top: 40px;
+}
+
+#columns-container {
+  display: flex;
+  justify-content: flex-start;
+  width: 900px;
+  flex-wrap: wrap;
+  padding-top: 40px;
+}
+
+.header-footer {
+  margin: 5px;
+  padding: 20px;
+  flex: 0 0 100%;
+}
+
+.column {
+  width: 300px;
+  height: 300px;
+}
+
+#left-column {
+  margin: auto;
+  text-align: left;
+}
+
+#right-column {
+  margin: auto;
+}

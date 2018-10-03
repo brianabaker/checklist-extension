@@ -2,8 +2,33 @@
 <html>
   <head>
     <title>Test</title>
+    <link rel="stylesheet" href="./main.css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   </head>
   <body>
-    <h1>Hello World!</h1>
+    <div class="wrapper">
+      Wrapper Div
+      <div class="header-footer" id="top-div">
+        Top Div.
+      </div>
+      <div id="columns-container">
+        <div class="column" id="left-column">
+          <input type="text" placeholder="Add a Todo" id="add-todo-input"></input><br/>
+          left panel</br>
+          the actual chetcklist. input area at the top of the panel?
+        </div>
+        <div class="column" id="right-column">
+          <button id="getButton">GET</button></br>
+          right panel</br>
+          a notes panel? will have to collapse under the left panel.</br>
+          input area at the top of the panel?
+        </div>
+      </div>
+      <div class="header-footer" id="bottom-div">
+        Bottom Div.<br/>
+        For completed tasks somehow listed?
+      </div>
+    </div>
+    <script src="todo-script.js"></script>
   </body>
 </html>
