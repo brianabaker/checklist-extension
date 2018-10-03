@@ -19,13 +19,23 @@ chrome.runtime.onStartup.addListener(() => {
 
 const textinput = document.getElementById('add-todo-input');
 const getButton = document.getElementById('getButton');
-const leftColumn = document.getElementById('left-column');
+// const leftColumn = document.getElementById('left-column');
+const todoList = document.getElementById('todo-list');
+const checkbox = document.querySelectorAll("input[name=checkbox]");
+
+// using querySelector grabs all the checkboxes
+window.onload = displayTodos();
 
 // this is a temp button to show what's in the get. right now only showing one item.
 getButton.addEventListener('click', (e) => {
   // this is returning the new array
   tempButton();
 })
+function tempButton(){
+  chrome.storage.sync.get('list', function (data) {
+    console.log(data);
+  });
+}
 
 // add a todo by pressing enter
 textinput.addEventListener('keypress', (e) => {
@@ -40,6 +50,7 @@ textinput.addEventListener('keypress', (e) => {
    }
 })
 
+// appends a new todo to the end of the array
 function update(array){
   let newTodo = textinput.value;
   array.push(newTodo);
@@ -47,27 +58,43 @@ function update(array){
   chrome.storage.sync.set({ list: array }, function() {
     console.log("added to list with new values");
   });
+  displayTodos();
 }
 
-
-function tempButton(){
-  chrome.storage.sync.get('list', function (data) {
-    console.log(data);
-  });
+function makeSpan(){
+  // <i class="fas fa-trash-alt"></i>
+  document.createElement("i");
+  i.class="fas fa-trash-alt";
 }
 
 function displayTodos(){
-  const li = document.createElement('li');
-  console.log('in the display todos');
+  // not sure if this is the most efficient way but deletes all content in the todo list
+  // to pessimistically render each new todo
+  const pageBreak = document.createElement('br');
+  todoList.innerHTML = '';
   chrome.storage.sync.get('list', function (data) {
-    console.log(data);
-    li.innerHTML = data.list;
-    leftColumn.append(li);
+    console.log(data.list);
+    data.list.forEach((item, idx) => {
+      let newCheckbox = document.createElement('input');
+      let label = document.createElement('label')
+      let i = document.createElement("i");
+      i.class = "fas fa-trash-alt";
+      // let icon = "\f2ed"
+      newCheckbox.type = "checkbox";
+      newCheckbox.value = item;
+      newCheckbox.id = idx;
+      label.innerHTML = item +'</br>';
+      label.prepend(newCheckbox);
+      label.append(i);
+      // let span = document.createElement("span");
+      (todoList).append(label);
+    });
   });
 }
 
 function addTodo() {
   let newTodo = textinput.value;
+  textinput.value = '';
   console.log(theValue);
   if (!theValue) {
     console.log("No value is set");
@@ -87,4 +114,12 @@ function updateTodos(array, value) {
   chrome.storage.sync.set({'list': array}, function() {
       console.log("added to list with new values");
   });
+}
+window.onload = function(){
+
+  checkbox.addEventListener('change', function() {
+    if(this.checked) {
+      console.log('if checked', this)
+    }
+  })
 }
