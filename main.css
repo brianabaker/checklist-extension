@@ -18,6 +18,34 @@ body {
   padding-top: 40px;
 }
 
+.a-todo {
+  border-radius: 25px;
+  border: 2px solid #73AD21;
+}
+
+.a-todo:hover span{
+  visibility: hidden;
+	position: relative;
+}
+
+.a-todo:hover span:before{
+  visibility: visible;
+	/* position: absolute; */
+  content: 'Completed!';
+  color: white;
+  background-color: blue;
+  position: relative;
+}
+
+.a-todo:hover span:after{
+  visibility: visible;
+  content: 'Remove';
+  float: right;
+  color: white;
+  background-color: red;
+  position: relative;
+}
+
 #columns-container {
   display: flex;
   justify-content: flex-start;
@@ -35,6 +63,7 @@ body {
 .column {
   width: 300px;
   height: 300px;
+  overflow: auto;
 }
 
 #left-column {

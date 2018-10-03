@@ -24,7 +24,6 @@ const todoList = document.getElementById('todo-list');
 const checkbox = document.querySelectorAll("input[name=checkbox]");
 
 // using querySelector grabs all the checkboxes
-window.onload = displayTodos();
 
 // this is a temp button to show what's in the get. right now only showing one item.
 getButton.addEventListener('click', (e) => {
@@ -76,20 +75,34 @@ function displayTodos(){
     console.log(data.list);
     data.list.forEach((item, idx) => {
       let newCheckbox = document.createElement('input');
-      let label = document.createElement('label')
-      let i = document.createElement("i");
-      i.class = "fas fa-trash-alt";
-      // let icon = "\f2ed"
-      newCheckbox.type = "checkbox";
-      newCheckbox.value = item;
-      newCheckbox.id = idx;
-      label.innerHTML = item +'</br>';
-      label.prepend(newCheckbox);
-      label.append(i);
+      let newDiv = document.createElement('div')
+      let label = document.createElement('label') // DO I NEED THIS? DO I GET RID OF CHECKBOX
+      let span = document.createElement('span')
+      newDiv.classList.add('a-todo');
+      newDiv.id = idx;
+      // myDiv.onmouseout  =
+      // newDiv.onmouseover = todoHover;
+      // let i = document.createElement("i");
+      // i.classList.add('fas fa-trash-alt');
+
+      // newCheckbox.type = "checkbox";
+      // newCheckbox.value = item;
+      // newCheckbox.id = idx;
+      span.innerHTML = item;
+      span.id = idx;
+      // label.innerHTML = item;
+      // label.prepend(newCheckbox);
+
+      newDiv.append(span)
       // let span = document.createElement("span");
-      (todoList).append(label);
+      todoList.append(newDiv);
     });
   });
+}
+
+function todoHover(){
+  console.info('in todo hover', this);
+  this.innerHTML = "Completed!";
 }
 
 function addTodo() {
@@ -116,7 +129,7 @@ function updateTodos(array, value) {
   });
 }
 window.onload = function(){
-
+  displayTodos();
   checkbox.addEventListener('change', function() {
     if(this.checked) {
       console.log('if checked', this)
