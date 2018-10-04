@@ -8,6 +8,14 @@
 
 // okay let's remember how to make a todo list in vanilla JS
 
+// THIS CLEARED MY HISTORY
+// chrome.storage.sync.clear()
+
+// OKAY will do a design overhaul pseudoelements on hover -- I can't get the property of them and now I think it's a time sink. Cool to learn about but let's move on.
+// Do a drag and drop clickable div eventually -- for now just use :before to add an image of an empty checkbox, have it change to a checkbox with a little arrow on hover? and have that click event be what marks it as completed.
+// move it to an array of completed tasks
+
+// THIS IS NOT WORKING AND I DON'T KNOW WHY
 chrome.runtime.onStartup.addListener(() => {
   console.log("I started up!");
   let defaultValue = [];
@@ -24,6 +32,7 @@ const todoList = document.getElementById('todo-list');
 const checkbox = document.querySelectorAll("input[name=checkbox]");
 
 // using querySelector grabs all the checkboxes
+
 
 // this is a temp button to show what's in the get. right now only showing one item.
 getButton.addEventListener('click', (e) => {
@@ -44,6 +53,7 @@ textinput.addEventListener('keypress', (e) => {
     // calls the update function with the data in chrome storage
     chrome.storage.sync.get({ list: [] }, function(data) {
        console.log(data.list);
+       //calls the update function with the value in the text box
        update(data.list); //storing the storage value in a variable and passing to update function
      })
    }
@@ -79,6 +89,7 @@ function displayTodos(){
       let label = document.createElement('label') // DO I NEED THIS? DO I GET RID OF CHECKBOX
       let span = document.createElement('span')
       newDiv.classList.add('a-todo');
+      // newDiv.classList.add('todo-after');
       newDiv.id = idx;
       // myDiv.onmouseout  =
       // newDiv.onmouseover = todoHover;
@@ -100,6 +111,21 @@ function displayTodos(){
   });
 }
 
+document.addEventListener( "click", someListener );
+// && element.classList.contains("todo-before")
+function someListener(event){
+    var element = event.target;
+    console.info(element);
+    if(element.tagName == 'SPAN'){
+      // var color = window.getComputedStyle(document.querySelector('.a-todo'),':after').getPropertyValue('color');
+
+      var a = window.getComputedStyle(document.querySelector('.a-todo'), 'hover').getPropertyValue('color');
+      console.log(a)
+      // console.log('color', color);
+    }
+}
+
+// I think this is nothing right now
 function todoHover(){
   console.info('in todo hover', this);
   this.innerHTML = "Completed!";
