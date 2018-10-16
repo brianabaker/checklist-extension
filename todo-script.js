@@ -136,7 +136,7 @@ function displayTodos(){
       aTagDel.onclick = (() => alert('hit the DELETE a tag'));
       aTagEdit.onclick = (() => alert('hit the EDIT a tag'));
 
-      dropDownBTN.onclick = myFunction;
+      dropDownBTN.ondblclick = myFunction;
 
       // label.innerHTML = item;
       // label.prepend(newCheckbox);
