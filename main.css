@@ -21,13 +21,22 @@ body {
 .draggable-source {
   cursor: pointer;
   border-radius: 25px;
-  border: 2px solid #73AD21;
+  padding: 1%;
+  margin: 0.2% 0 0.2% 0;
+  border: 2px solid #ad9f212b;
 }
 
-.todo-before:hover span{
-  visibility: hidden;
-	position: relative;
+.delete-item {
+  float:right;
 }
+
+.check-off-item {
+  margin-right: 2%;
+}
+/* .a-todo::after {
+  content: 'hi';
+  position: fixed;
+} */
 
 /* seems to work fine omitting the word span */
 

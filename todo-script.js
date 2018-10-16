@@ -11,7 +11,7 @@
 // THIS CLEARED MY HISTORY
 // chrome.storage.sync.clear()
 
-
+// HERE IS THE DRAGGABLE JS
 const todoListContainer = document.querySelectorAll('#todo-list');
 
 const draggable = new window.Draggable.Sortable(todoListContainer, {
@@ -25,6 +25,7 @@ const draggable = new window.Draggable.Sortable(todoListContainer, {
 draggable.on('sortable:sorted', function() {
   console.log('sorted!');
 });
+// END DRAGGABLE JS
 
 // THIS IS NOT WORKING AND I DON'T KNOW WHY
 chrome.runtime.onStartup.addListener(() => {
@@ -84,7 +85,10 @@ function update(array){
 function makeSpan(){
   // <i class="fas fa-trash-alt"></i>
   document.createElement("i");
-  i.class="fas fa-trash-alt";
+  // trash icon
+  // i.class="fas fa-trash-alt";
+  // sort down icon
+  i.class="fas fa-sort-down";
 }
 
 function displayTodos(){
@@ -98,30 +102,36 @@ function displayTodos(){
       let newCheckbox = document.createElement('input');
       let newDiv = document.createElement('div')
       let label = document.createElement('label') // DO I NEED THIS? DO I GET RID OF CHECKBOX
-      let span = document.createElement('span')
+      let checkSpan = document.createElement('span')
+      let mainSpan = document.createElement('span')
+      let delSpan = document.createElement('span')
       newDiv.classList.add('a-todo');
       newDiv.classList.add('draggable-source');
-      // newDiv.classList.add('todo-after');
       newDiv.id = idx;
-      // myDiv.onmouseout  =
-      // newDiv.onmouseover = todoHover;
       // let i = document.createElement("i");
-      // i.classList.add('fas fa-trash-alt');
-
-      // newCheckbox.type = "checkbox";
-      // newCheckbox.value = item;
-      // newCheckbox.id = idx;
-      span.innerHTML = item;
-      span.id = idx;
+      // i.classList.add('fas fa-sort-down');
+      mainSpan.innerHTML = item;
+      // span.append('<i class="fas fa-trash-alt"></i>');
+      checkSpan.id = idx;
+      mainSpan.id = idx;
+      delSpan.id = idx;
+      delSpan.innerHTML = 'del';
+      checkSpan.innerHTML = 'CK'
+      checkSpan.classList.add('check-off-item')
+      delSpan.classList.add('delete-item')
+      checkSpan.onclick = function() { alert('completed! ' + idx); };
+      delSpan.onclick = function() { alert('delete' + idx); };
       // label.innerHTML = item;
       // label.prepend(newCheckbox);
-
-      newDiv.append(span)
-      // let span = document.createElement("span");
+      mainSpan.append(delSpan);
+      mainSpan.prepend(checkSpan);
+      newDiv.append(mainSpan)
+      // let checkSpan = document.createElement("checkSpan");
       todoList.append(newDiv);
     });
   });
 }
+
 // THIS IS PROBABLY TO DELETE
 // FROM BEFORE AND AFTER PSEUDOELEMENTS
 // document.addEventListener( "click", someListener );
