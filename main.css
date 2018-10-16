@@ -18,7 +18,8 @@ body {
   padding-top: 40px;
 }
 
-.todo-before {
+.draggable-source {
+  cursor: pointer;
   border-radius: 25px;
   border: 2px solid #73AD21;
 }
@@ -29,23 +30,6 @@ body {
 }
 
 /* seems to work fine omitting the word span */
-.a-todo:hover :before{
-  visibility: visible;
-	/* position: absolute; */
-  content: 'Completed!';
-  color: rgb(255, 0, 0);;
-  background-color: blue;
-  position: relative;
-}
-
-.a-todo:hover :after{
-  visibility: visible;
-  content: 'Remove';
-  float: right;
-  color: white;
-  background-color: red;
-  position: relative;
-}
 
 #columns-container {
   display: flex;

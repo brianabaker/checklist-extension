@@ -11,9 +11,20 @@
 // THIS CLEARED MY HISTORY
 // chrome.storage.sync.clear()
 
-// OKAY will do a design overhaul pseudoelements on hover -- I can't get the property of them and now I think it's a time sink. Cool to learn about but let's move on.
-// Do a drag and drop clickable div eventually -- for now just use :before to add an image of an empty checkbox, have it change to a checkbox with a little arrow on hover? and have that click event be what marks it as completed.
-// move it to an array of completed tasks
+
+const todoListContainer = document.querySelectorAll('#todo-list');
+
+const draggable = new window.Draggable.Sortable(todoListContainer, {
+  draggable: '.draggable-source',
+  appendTo: '#todo-list',
+  classes: {
+    body: 'draggable-container--is-dragging',
+  },
+});
+
+draggable.on('sortable:sorted', function() {
+  console.log('sorted!');
+});
 
 // THIS IS NOT WORKING AND I DON'T KNOW WHY
 chrome.runtime.onStartup.addListener(() => {
@@ -89,6 +100,7 @@ function displayTodos(){
       let label = document.createElement('label') // DO I NEED THIS? DO I GET RID OF CHECKBOX
       let span = document.createElement('span')
       newDiv.classList.add('a-todo');
+      newDiv.classList.add('draggable-source');
       // newDiv.classList.add('todo-after');
       newDiv.id = idx;
       // myDiv.onmouseout  =
@@ -110,20 +122,21 @@ function displayTodos(){
     });
   });
 }
-
-document.addEventListener( "click", someListener );
-// && element.classList.contains("todo-before")
-function someListener(event){
-    var element = event.target;
-    console.info(element);
-    if(element.tagName == 'SPAN'){
-      // var color = window.getComputedStyle(document.querySelector('.a-todo'),':after').getPropertyValue('color');
-
-      var a = window.getComputedStyle(document.querySelector('.a-todo'), 'hover').getPropertyValue('color');
-      console.log(a)
-      // console.log('color', color);
-    }
-}
+// THIS IS PROBABLY TO DELETE
+// FROM BEFORE AND AFTER PSEUDOELEMENTS
+// document.addEventListener( "click", someListener );
+// // && element.classList.contains("todo-before")
+// function someListener(event){
+//     var element = event.target;
+//     console.info(element);
+//     if(element.tagName == 'SPAN'){
+//       // var color = window.getComputedStyle(document.querySelector('.a-todo'),':after').getPropertyValue('color');
+//
+//       var a = window.getComputedStyle(document.querySelector('.a-todo'), 'hover').getPropertyValue('color');
+//       console.log(a)
+//       // console.log('color', color);
+//     }
+// }
 
 // I think this is nothing right now
 function todoHover(){
