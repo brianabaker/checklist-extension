@@ -101,10 +101,13 @@ function displayTodos(){
     data.list.forEach((item, idx) => {
       let newCheckbox = document.createElement('input');
       let newDiv = document.createElement('div')
+      let dropDownDiv = document.createElement('div')
       let label = document.createElement('label') // DO I NEED THIS? DO I GET RID OF CHECKBOX
       let checkSpan = document.createElement('span')
       let mainSpan = document.createElement('span')
-      let delSpan = document.createElement('span')
+      let dropDownBTN = document.createElement('span')
+      let aTagDel = document.createElement('a')
+      let aTagEdit = document.createElement('a')
       newDiv.classList.add('a-todo');
       newDiv.classList.add('draggable-source');
       newDiv.id = idx;
@@ -112,18 +115,32 @@ function displayTodos(){
       // i.classList.add('fas fa-sort-down');
       mainSpan.innerHTML = item;
       // span.append('<i class="fas fa-trash-alt"></i>');
-      checkSpan.id = idx;
-      mainSpan.id = idx;
-      delSpan.id = idx;
-      delSpan.innerHTML = 'del';
+      // each will have the same ID
+      checkSpan.id = "check" + idx;
+      mainSpan.id = "main" + idx;
+      dropDownBTN.id = "dropdown" + idx;
+      aTagDel.id = "del" + idx;
+      aTagEdit.id = "edit" + idx;
+      aTagDel.innerHTML = "del";
+      aTagEdit.innerHTML = "edit";
+      dropDownBTN.innerHTML = 'EDIT';
       checkSpan.innerHTML = 'CK'
+      dropDownDiv.append(aTagEdit)
+      dropDownDiv.append(aTagDel);
+      dropDownBTN.append(dropDownDiv);
+      dropDownDiv.id = "myDropdown";
+      dropDownDiv.classList.add('dropdown-content')
       checkSpan.classList.add('check-off-item')
-      delSpan.classList.add('delete-item')
+      dropDownBTN.classList.add('delete-item')
       checkSpan.onclick = function() { alert('completed! ' + idx); };
-      delSpan.onclick = function() { alert('delete' + idx); };
+      aTagDel.onclick = (() => alert('hit the DELETE a tag'));
+      aTagEdit.onclick = (() => alert('hit the EDIT a tag'));
+
+      dropDownBTN.onclick = myFunction;
+
       // label.innerHTML = item;
       // label.prepend(newCheckbox);
-      mainSpan.append(delSpan);
+      mainSpan.append(dropDownBTN);
       mainSpan.prepend(checkSpan);
       newDiv.append(mainSpan)
       // let checkSpan = document.createElement("checkSpan");
@@ -131,6 +148,28 @@ function displayTodos(){
     });
   });
 }
+
+window.onclick = function(event) {
+  if (!event.target.matches('.delete-item')) {
+    console.log('hit the thing!')
+    var dropdowns = document.getElementsByClassName("dropdown-content");
+    var i;
+    for (i = 0; i < dropdowns.length; i++) {
+      console.log('dropdowni', dropdowns[i])
+      var openDropdown = dropdowns[i];
+      if (openDropdown.classList.contains('show')) {
+        openDropdown.classList.remove('show');
+      }
+    }
+  }
+}
+
+function myFunction() {
+  console.log('inside my function')
+  document.getElementById("myDropdown").classList.toggle("show");
+  console.log(document.getElementById("myDropdown"));
+}
+
 
 // THIS IS PROBABLY TO DELETE
 // FROM BEFORE AND AFTER PSEUDOELEMENTS
