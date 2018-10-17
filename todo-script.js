@@ -41,12 +41,9 @@ const textinput = document.getElementById('add-todo-input');
 const getButton = document.getElementById('getButton');
 // const leftColumn = document.getElementById('left-column');
 const todoList = document.getElementById('todo-list');
-const checkbox = document.querySelectorAll("input[name=checkbox]");
-
-// using querySelector grabs all the checkboxes
 
 
-// this is a temp button to show what's in the get. right now only showing one item.
+// this is a temp button to show what's in the get.
 getButton.addEventListener('click', (e) => {
   // this is returning the new array
   tempButton();
@@ -99,10 +96,10 @@ function displayTodos(){
   chrome.storage.sync.get('list', function (data) {
     console.log(data.list);
     data.list.forEach((item, idx) => {
-      let newCheckbox = document.createElement('input');
+      // let newCheckbox = document.createElement('input');
       let newDiv = document.createElement('div')
       let dropDownDiv = document.createElement('div')
-      let label = document.createElement('label') // DO I NEED THIS? DO I GET RID OF CHECKBOX
+      // let label = document.createElement('label') // DO I NEED THIS? DO I GET RID OF CHECKBOX
       let checkSpan = document.createElement('span')
       let mainSpan = document.createElement('span')
       let dropDownBTN = document.createElement('span')
@@ -132,14 +129,14 @@ function displayTodos(){
       dropDownDiv.classList.add('dropdown-content')
       checkSpan.classList.add('check-off-item')
       dropDownBTN.classList.add('delete-item')
-      checkSpan.onclick = function() { alert('completed! ' + idx); };
-      aTagDel.onclick = (() => alert('hit the DELETE a tag'));
+      checkSpan.onclick = function() { alert('completed! ' + checkSpan.id); };
+      aTagDel.onclick = (() => alert('hit the DELETE a tag' + checkSpan.id));
       aTagEdit.onclick = (() => alert('hit the EDIT a tag'));
 
       dropDownBTN.ondblclick = myFunction;
 
       // label.innerHTML = item;
-      // label.prepend(newCheckbox);
+
       mainSpan.append(dropDownBTN);
       mainSpan.prepend(checkSpan);
       newDiv.append(mainSpan)
@@ -149,13 +146,18 @@ function displayTodos(){
   });
 }
 
+// the onclick functions
 window.onclick = function(event) {
+  // clears chrome storage and refreshes to clear all todos
+  if (event.target.matches('#trash-icon')){
+    chrome.storage.sync.clear();
+    location.reload();
+  }
+  // toggles the edit menu
   if (!event.target.matches('.delete-item')) {
-    console.log('hit the thing!')
     var dropdowns = document.getElementsByClassName("dropdown-content");
     var i;
     for (i = 0; i < dropdowns.length; i++) {
-      console.log('dropdowni', dropdowns[i])
       var openDropdown = dropdowns[i];
       if (openDropdown.classList.contains('show')) {
         openDropdown.classList.remove('show');
@@ -216,11 +218,8 @@ function updateTodos(array, value) {
       console.log("added to list with new values");
   });
 }
+
+// calls the displayTodos function when the window is finished loading
 window.onload = function(){
   displayTodos();
-  checkbox.addEventListener('change', function() {
-    if(this.checked) {
-      console.log('if checked', this)
-    }
-  })
 }
